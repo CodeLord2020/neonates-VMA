@@ -1,0 +1,86 @@
+{
+  "RDS": {
+    "symptoms": [
+      "rapid laboured respirations",
+      "suprasternal and substernal retractions",
+      "flaring of the alae nasi",
+      "cyanosis",
+      "lethargy",
+      "irregular breathing",
+      "apnea"
+    ],
+    "diagnosis": [
+      "Clinical Evaluation",
+      "Arterial blood gases (hypoxemia and hypercapnia)",
+      "Chest X-ray"
+    ],
+    "treatment": [
+      "Intratracheal surfactant",
+      "Supplementary oxygen",
+      "Mechanical ventilation"
+    ],
+    "prevention": [
+      "Betamethasone or dexamethasone to mother before delivery between 24-34 weeks",
+      "Prophylactic intratracheal surfactant therapy for neonates < 30 weeks gestation"
+    ]
+  },
+  "Neonatal Pneumonia": {
+    "symptoms": [
+      "unexplained worsening of respiratory status",
+      "increased respiratory secretions",
+      "thick and brown respiratory secretions",
+      "temperature instability",
+      "neutropenia"
+    ],
+    "diagnosis": [
+      "Chest x-ray",
+      "Pulse oximetry",
+      "Blood cultures",
+      "Gram stain and culture of tracheal aspirate"
+    ],
+    "treatment": [
+      "Vancomycin",
+      "Broad-spectrum beta-lactam drug",
+      "Erythromycin or azithromycin"
+    ],
+    "prevention": [
+      "Erythromycin or azithromycin prophylaxis"
+    ]
+  },
+  "Birth Asphyxia": {
+    "symptoms": [
+      "abnormal fetal heart rate",
+      "low blood pH levels",
+      "unusual skin tone",
+      "silent and not crying",
+      "low heart rate",
+      "weak muscle tone",
+      "weak reflexes",
+      "lack of breathing or difficulty breathing",
+      "amniotic fluid stained with meconium",
+      "seizures",
+      "poor circulation"
+    ],
+    "diagnosis": [
+      "Apgar score assessment"
+    ],
+    "treatment": [
+      "Providing extra oxygen",
+      "Emergency or cesarean delivery",
+      "Suctioning fluid from airways",
+      "Putting newborn on respirator",
+      "Hyperbaric oxygen tank",
+      "Induced hypothermia",
+      "Medication for blood pressure regulation",
+      "Dialysis",
+      "Medication for seizure control",
+      "Intravenous nutrition",
+      "Breathing tube for nitric oxide",
+      "Life support with heart and lung pump"
+    ],
+    "prevention": [
+      "Proper prenatal care",
+      "Monitoring fetal heart rate during labor"
+    ]
+  }
+}

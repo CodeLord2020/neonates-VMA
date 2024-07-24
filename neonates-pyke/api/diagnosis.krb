@@ -1,0 +1,14 @@
+diagnosis
+
+use diseases
+
+diagnose($symptoms, $disease, $match_ratio)
+    foreach
+        disease($disease)
+        $matched = count(has_symptom($disease, $symptom),
+                         $symptom in $symptoms)
+        $total = count(has_symptom($disease, $symptom))
+        $match_ratio = float($matched) / float($total)
+    assert
+        diagnosed($disease, $match_ratio)
+    $match_ratio > 0
