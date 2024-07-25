@@ -22,26 +22,56 @@ class SymptomDetail(generics.RetrieveAPIView):
     serializer_class = SymptomSerializer
 
 
-
 class Diagnose(APIView):
     def post(self, request, format=None):
-        symptoms = request.data.get('symptoms', [])
-        diseases = Disease.objects.filter(symptoms__name__in=symptoms).distinct()
+        payload_symptoms = set(request.data.get('symptoms', []))
+        
+        # Get all diseases that have at least one symptom in the payload
+        diseases = Disease.objects.filter(symptoms__name__in=payload_symptoms).distinct()
         
         results = []
+        
         for disease in diseases:
-            matched_symptoms = disease.symptoms.filter(name__in=symptoms)
-            match_ratio = len(matched_symptoms) / disease.symptoms.count()
+            disease_symptoms = set(disease.symptoms.values_list('name', flat=True))
+            matched_symptoms = disease_symptoms.intersection(payload_symptoms)
+            
+            # Calculate percentage fit
+            percentage_fit = (len(matched_symptoms) / len(disease_symptoms)) * 100
+            
             results.append({
                 'disease': disease.name,
-                'match_ratio': match_ratio,
-                'matched_symptoms': [s.name for s in matched_symptoms],
+                'percentage_fit': round(percentage_fit, 2),
+                'matched_symptoms': list(matched_symptoms),
                 'treatments': [t.name for t in disease.treatments.all()],
                 'preventions': [p.name for p in disease.preventions.all()],
             })
+            
+
+        # Sort results by percentage fit in descending order
+        results.sort(key=lambda x: x['percentage_fit'], reverse=True)
         
-        results.sort(key=lambda x: x['match_ratio'], reverse=True)
         return Response(results)
+
+
+# class Diagnose(APIView):
+#     def post(self, request, format=None):
+#         symptoms = request.data.get('symptoms', [])
+#         diseases = Disease.objects.filter(symptoms__name__in=symptoms).distinct()
+        
+#         results = []
+#         for disease in diseases:
+#             matched_symptoms = disease.symptoms.filter(name__in=symptoms)
+#             match_ratio = len(matched_symptoms) / disease.symptoms.count()
+#             results.append({
+#                 'disease': disease.name,
+#                 'match_ratio': match_ratio,
+#                 'matched_symptoms': [s.name for s in matched_symptoms],
+#                 'treatments': [t.name for t in disease.treatments.all()],
+#                 'preventions': [p.name for p in disease.preventions.all()],
+#             })
+        
+#         results.sort(key=lambda x: x['match_ratio'], reverse=True)
+#         return Response(results)
     
 
 # class CalculateApgar(APIView):

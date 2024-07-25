@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#+!jt_j#9sf1@&tw0k@im@%2^fgjcd)nh%p-dp-b*vfcb(9z11
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['neonates-virtual-medical-assistant.onrender.com']
+ALLOWED_HOSTS = ['neonates-virtual-medical-assistant.onrender.com','127.0.0.1']
 
 
 # Application definition
