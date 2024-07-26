@@ -22,6 +22,20 @@ class SymptomDetail(generics.RetrieveAPIView):
     serializer_class = SymptomSerializer
 
 
+
+# def HomeView(request):
+#     return render (request, template_name='home.html')
+
+# def Home1View(request):
+#     return render (request, template_name='home1.html')
+
+def IndexView(request):
+    return render (request, template_name='index.html')
+
+
+
+
+
 class Diagnose(APIView):
     def post(self, request, format=None):
         payload_symptoms = set(request.data.get('symptoms', []))
@@ -29,6 +43,11 @@ class Diagnose(APIView):
         # Get all diseases that have at least one symptom in the payload
         diseases = Disease.objects.filter(symptoms__name__in=payload_symptoms).distinct()
         
+        disease_descriptions = {
+        "Birth Asphyxia": "A decrease in blood flow to a newborn's tissues or oxygen in their blood before, during, or just after delivery.",
+        "RDS": "Primarily seen in premature infants due to a deficiency in surfactant, a substance that keeps the alveoli in the lungs open.",
+        "Neonatal Pneumonia": "Lung infection in a newborn. Onset may be within hours of birth or after 7 days."}
+
         results = []
         
         for disease in diseases:
@@ -37,9 +56,11 @@ class Diagnose(APIView):
             
             # Calculate percentage fit
             percentage_fit = (len(matched_symptoms) / len(disease_symptoms)) * 100
+            description = disease_descriptions.get(disease.name)
             
             results.append({
                 'disease': disease.name,
+                'description': description,
                 'percentage_fit': round(percentage_fit, 2),
                 'matched_symptoms': list(matched_symptoms),
                 'treatments': [t.name for t in disease.treatments.all()],

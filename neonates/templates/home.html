@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Assistant</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 20px;
+    }
+    .container {
+      max-width: 800px;
+    }
+    .result-card {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Medical Assistant</h1>
+
+    <!-- Diagnose Form -->
+    <div class="card">
+      <div class="card-header">
+        Diagnose
+      </div>
+      <div class="card-body">
+        <form id="diagnoseForm">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="symptoms">Symptoms</label>
+            <textarea class="form-control" id="symptoms" rows="3" placeholder="Enter symptoms separated by commas"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Diagnose</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Diagnose Result -->
+    <div id="diagnoseResult" class="result-card card d-none">
+      <div class="card-header">
+        Diagnose Result
+      </div>
+      <div class="card-body">
+        <pre id="diagnoseOutput"></pre>
+      </div>
+    </div>
+
+    <!-- Apgar Form -->
+    <div class="card mt-4">
+      <div class="card-header">
+        Calculate Apgar
+      </div>
+      <div class="card-body">
+        <form id="apgarForm">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="appearance">Appearance</label>
+            <select class="form-control" id="appearance">
+              <option>All blue pale</option>
+              <option>Pink body, blue extremities</option>
+              <option>All pink</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pulse">Pulse</label>
+            <select class="form-control" id="pulse">
+              <option>No Pulse</option>
+              <option>Less than 100</option>
+              <option>More than 100</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="grimace">Grimace</label>
+            <select class="form-control" id="grimace">
+              <option>No response</option>
+              <option>Grimace</option>
+              <option>Sneeze, Cough</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="activity">Activity</label>
+            <select class="form-control" id="activity">
+              <option>Limp</option>
+              <option>Some flexion</option>
+              <option>Active movement</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="respiration">Respiration</label>
+            <select class="form-control" id="respiration">
+              <option>Absent</option>
+              <option>Weak cry</option>
+              <option>Good cry</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Calculate Apgar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Apgar Result -->
+    <div id="apgarResult" class="result-card card d-none">
+      <div class="card-header">
+        Apgar Result
+      </div>
+      <div class="card-body">
+        <pre id="apgarOutput"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Diagnose Form Submission
+    $('#diagnoseForm').on('submit', function(event) {
+      event.preventDefault();
+      const symptoms = $('#symptoms').val().split(',').map(s => s.trim());
+      $.ajax({
+        url: '/api/diagnose',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ symptoms }),
+        success: function(data) {
+          $('#diagnoseOutput').text(JSON.stringify(data, null, 2));
+          $('#diagnoseResult').removeClass('d-none');
+        },
+        error: function(error) {
+          alert('Error: ' + error.responseText);
+        }
+      });
+    });
+
+    // Apgar Form Submission
+    $('#apgarForm').on('submit', function(event) {
+      event.preventDefault();
+      const appearance = $('#appearance').val();
+      const pulse = $('#pulse').val();
+      const grimace = $('#grimace').val();
+      const activity = $('#activity').val();
+      const respiration = $('#respiration').val();
+      var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+      $.ajax({
+        url: '/api/calculate-apgar/',
+        method: 'POST',
+        headers: {
+        'X-CSRFToken': csrftoken
+    },
+        contentType: 'application/json',
+        data: JSON.stringify({ appearance, pulse, grimace, activity, respiration }),
+        success: function(data) {
+          $('#apgarOutput').text(JSON.stringify(data, null, 2));
+          $('#apgarResult').removeClass('d-none');
+        },
+        error: function(error) {
+          alert('Error: ' + error.responseText);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

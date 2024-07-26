@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Medical Assistant</title>
+    <link rel="icon" href="{% static 'css/favicon.ico' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index_styles.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid" >
+            <a class="navbar-brand" href="#"><i class="fas fa-hospital-user me-2"></i>VIRTUAL MEDICAL ASSISTANT FOR NEONATES</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#diagnosis">Diagnosis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#apgar">Apgar Score</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <section id="apgar" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-baby me-2"></i>Apgar Score Calculator</h2>
+            <h5 style="background-color: rgb(253, 253, 238); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"><b>The word "Apgar" is an acronym whose letters A, P, G, A, and R corresponds to Appearance, Pulse, Grimace, Activity and Respiration.</b></h5>
+            <form id="apgarForm" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <!-- <h3>The word "Apgar" is also an acronym. The letters A, P, G, A, and R corresponds to Appearance, Pulse, Grimace, Activity and Respiration.</h3> -->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="appearance" class="form-label">Appearance</label>
+                        <select class="form-select" id="appearance" required>
+                            <option value="">Choose...</option>
+                            <option value="All blue pale">All blue pale</option>
+                            <option value="Pink body, blue extremities">Pink body, blue extremities</option>
+                            <option value="All pink">All pink</option>
+                        </select>
+                        <div class="invalid-feedback">Please select an appearance.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="pulse" class="form-label">Pulse</label>
+                        <select class="form-select" id="pulse" required>
+                            <option value="">Choose...</option>
+                            <option value="No Pulse">No Pulse</option>
+                            <option value="Less than 100">Less than 100</option>
+                            <option value="More than 100">More than 100</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a pulse rate.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="grimace" class="form-label">Grimace</label>
+                        <select class="form-select" id="grimace" required>
+                            <option value="">Choose...</option>
+                            <option value="No response">No response</option>
+                            <option value="Grimace">Grimace</option>
+                            <option value="Sneeze, Cough">Sneeze, Cough</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a grimace response.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="activity" class="form-label">Activity</label>
+                        <select class="form-select" id="activity" required>
+                            <option value="">Choose...</option>
+                            <option value="Limp">Limp</option>
+                            <option value="Some flexion">Some flexion</option>
+                            <option value="Active movement">Active movement</option>
+                        </select>
+                        <div class="invalid-feedback">Please select an activity level.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="respiration" class="form-label">Respiration</label>
+                        <select class="form-select" id="respiration" required>
+                            <option value="">Choose...</option>
+                            <option value="Absent">Absent</option>
+                            <option value="Weak cry">Weak cry</option>
+                            <option value="Good cry">Good cry</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a respiration status.</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Calculate Apgar Score</button>
+            </form>
+            <div id="apgarResult" class="mt-4"></div>
+        </section>
+
+        <section id="diagnosis">
+            <h2 class="mb-4"><i class="fas fa-stethoscope me-2"></i>Diagnosis Tool</h2>
+            <form id="diagnosisForm" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Select Symptoms:</label>
+                    <div class="symptom-grid">
+                        <!-- <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="rapid laboured respirations" id="symptom1">
+                            <label class="form-check-label" for="symptom1">Rapid laboured respirations</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="cyanosis" id="symptom2">
+                            <label class="form-check-label" for="symptom2">Cyanosis</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="thick and brown respiratory secretions" id="symptom3">
+                            <label class="form-check-label" for="symptom3">Thick and brown respiratory secretions</label>
+                        </div> -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="rapid laboured respirations" id="symptom1">
+                            <label class="form-check-label" for="symptom1">Rapid laboured respirations</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="suprasternal and substernal retractions" id="symptom2">
+                            <label class="form-check-label" for="symptom2">Suprasternal and substernal retractions</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="flaring of the alae nasi" id="symptom3">
+                            <label class="form-check-label" for="symptom3">Flaring of the alae nasi</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="cyanosis" id="symptom4">
+                            <label class="form-check-label" for="symptom4">Cyanosis</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="lethargy" id="symptom5">
+                            <label class="form-check-label" for="symptom5">Lethargy</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="irregular breathing" id="symptom6">
+                            <label class="form-check-label" for="symptom6">Irregular breathing</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="apnea" id="symptom7">
+                            <label class="form-check-label" for="symptom7">Apnea</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="unexplained worsening of respiratory status" id="symptom8">
+                            <label class="form-check-label" for="symptom8">Unexplained worsening of respiratory status</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="increased respiratory secretions" id="symptom9">
+                            <label class="form-check-label" for="symptom9">Increased respiratory secretions</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="thick and brown respiratory secretions" id="symptom10">
+                            <label class="form-check-label" for="symptom10">Thick and brown respiratory secretions</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="temperature instability" id="symptom11">
+                            <label class="form-check-label" for="symptom11">Temperature instability</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="neutropenia" id="symptom12">
+                            <label class="form-check-label" for="symptom12">Neutropenia</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="abnormal fetal heart rate" id="symptom13">
+                            <label class="form-check-label" for="symptom13">Abnormal fetal heart rate</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="low blood pH levels" id="symptom14">
+                            <label class="form-check-label" for="symptom14">Low blood pH levels</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="unusual skin tone" id="symptom15">
+                            <label class="form-check-label" for="symptom15">Unusual skin tone</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="silent and not crying" id="symptom16">
+                            <label class="form-check-label" for="symptom16">Silent and not crying</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="low heart rate" id="symptom17">
+                            <label class="form-check-label" for="symptom17">Low heart rate</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="weak muscle tone" id="symptom18">
+                            <label class="form-check-label" for="symptom18">Weak muscle tone</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="weak reflexes" id="symptom19">
+                            <label class="form-check-label" for="symptom19">Weak reflexes</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="lack of breathing or difficulty breathing" id="symptom20">
+                            <label class="form-check-label" for="symptom20">Lack of breathing or difficulty breathing</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="amniotic fluid stained with meconium" id="symptom21">
+                            <label class="form-check-label" for="symptom21">Amniotic fluid stained with meconium</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="seizures" id="symptom22">
+                            <label class="form-check-label" for="symptom22">Seizures</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="poor circulation" id="symptom23">
+                            <label class="form-check-label" for="symptom23">Poor circulation</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="abnormal blood clotting" id="symptom24">
+                            <label class="form-check-label" for="symptom24">Abnormal blood clotting</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="lack of urination" id="symptom25">
+                            <label class="form-check-label" for="symptom25">Lack of urination</label>
+                          </div>
+                        <!-- Add more symptoms as needed -->
+                    </div>
+                    <div class="invalid-feedback">Please select at least one symptom.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Diagnose</button>
+            </form>
+            <div id="diagnosisResult" class="mt-4"></div>
+        </section>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); color: rgb(21, 8, 209);">
+            © 2024 Virtual Medical Assistant for Neonates by John the billionaire trader.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/index_script.js' %}"></script>
+</body>
+</html>

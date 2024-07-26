@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f2f4;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    /* height: 40px; */
+}
+
+h2 {
+    color: #0d6efd;
+    border-bottom: 2px solid #0d6efd;
+    padding-bottom: 10px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+#apgarResult, #diagnosisResult {
+    background-color: #8db6ee;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.result-card {
+    background-color: #f1f8ff;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.result-card h4 {
+    color: #004085;
+    margin-bottom: 10px;
+}
+
+.result-card ul {
+    padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+    .symptom-grid {
+        grid-template-columns: 1fr;
+    }
+}
